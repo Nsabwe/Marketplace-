@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Professional Marketplace Dashboard</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+:root{
+
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --dark:#0f172a;
+  --bg:#f1f5f9;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --danger:#ef4444;
+  --success:#22c55e;
+
+  --radius:24px;
+
+  --shadow:
+  0 10px 30px rgba(15,23,42,.08);
+
+  --sidebar-width:280px;
+
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  font-family:"Inter",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  min-height:100vh;
+  overflow-x:hidden;
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+  width:var(--sidebar-width);
+  background:
+  linear-gradient(180deg,#0f172a,#111827);
+
+  color:white;
+
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+
+  padding:25px 18px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+  z-index:1000;
+
+}
+
+.brand{
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:40px;
+
+}
+
+.brand-logo{
+
+  width:58px;
+  height:58px;
+
+  border-radius:18px;
+
+  background:
+  linear-gradient(135deg,#2563eb,#60a5fa);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:24px;
+
+}
+
+.brand h2{
+
+  font-size:24px;
+  font-weight:800;
+
+}
+
+.nav{
+
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+}
+
+.nav a{
+
+  text-decoration:none;
+  color:#cbd5e1;
+
+  padding:16px 18px;
+
+  border-radius:18px;
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  transition:.3s;
+
+  font-weight:600;
+  font-size:15px;
+
+}
+
+.nav a:hover,
+.nav a.active{
+
+  background:
+  rgba(255,255,255,.08);
+
+  color:white;
+
+}
+
+.logout-btn{
+
+  border:none;
+
+  background:
+  linear-gradient(135deg,#ef4444,#dc2626);
+
+  color:white;
+
+  padding:16px;
+
+  border-radius:18px;
+
+  cursor:pointer;
+
+  font-weight:700;
+  font-size:15px;
+
+}
+
+/* MAIN */
+
+.main{
+
+  margin-left:var(--sidebar-width);
+  width:calc(100% - var(--sidebar-width));
+
+  padding:30px;
+
+}
+
+/* TOPBAR */
+
+.topbar{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:20px;
+  margin-bottom:30px;
+
+  flex-wrap:wrap;
+
+}
+
+.welcome h1{
+
+  font-size:36px;
+  font-weight:800;
+
+}
+
+.welcome p{
+
+  color:var(--muted);
+  margin-top:6px;
+  font-size:16px;
+
+}
+
+.top-actions{
+
+  display:flex;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+
+}
+
+.search-box{
+
+  position:relative;
+
+}
+
+.search-box input{
+
+  width:280px;
+
+  border:none;
+  outline:none;
+
+  background:white;
+
+  padding:15px 18px 15px 48px;
+
+  border-radius:16px;
+
+  font-size:15px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.search-box i{
+
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+
+  color:var(--muted);
+
+}
+
+.profile-mini{
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  background:white;
+
+  padding:10px 15px;
+
+  border-radius:16px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.profile-mini img{
+
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+  object-fit:cover;
+
+}
+
+/* STATS */
+
+.stats-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(240px,1fr));
+
+  gap:22px;
+
+  margin-bottom:25px;
+
+}
+
+.stat-card{
+
+  background:white;
+
+  padding:25px;
+
+  border-radius:24px;
+
+  box-shadow:var(--shadow);
+
+  border:1px solid #e2e8f0;
+
+}
+
+.stat-top{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+}
+
+.stat-card h3{
+
+  font-size:32px;
+  margin-top:10px;
+
+}
+
+.stat-card p{
+
+  color:var(--muted);
+  font-size:15px;
+
+}
+
+.stat-icon{
+
+  width:60px;
+  height:60px;
+
+  border-radius:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+
+  font-size:22px;
+
+}
+
+.blue{
+  background:linear-gradient(135deg,#2563eb,#60a5fa);
+}
+
+.green{
+  background:linear-gradient(135deg,#16a34a,#4ade80);
+}
+
+.orange{
+  background:linear-gradient(135deg,#ea580c,#fb923c);
+}
+
+.dark{
+  background:linear-gradient(135deg,#0f172a,#334155);
+}
+
+/* CARD */
+
+.card{
+
+  background:white;
+
+  border-radius:26px;
+
+  padding:28px;
+
+  box-shadow:var(--shadow);
+
+  margin-bottom:28px;
+
+  border:1px solid #e2e8f0;
+
+}
+
+.card-title{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:15px;
+
+  margin-bottom:24px;
+
+  flex-wrap:wrap;
+
+}
+
+.card-title h2{
+
+  font-size:24px;
+  font-weight:800;
+
+}
+
+/* FORMS */
+
+.form-grid{
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+
+}
+
+.form-group{
+
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+label{
+
+  font-weight:700;
+  font-size:14px;
+
+}
+
+input,
+textarea,
+select{
+
+  border:1px solid #dbe2ea;
+
+  padding:16px;
+
+  border-radius:16px;
+
+  outline:none;
+
+  font-size:15px;
+  font-family:inherit;
+
+  transition:.25s;
+
+  background:white;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+  border-color:#2563eb;
+
+  box-shadow:
+  0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+textarea{
+
+  resize:none;
+  min-height:120px;
+
+}
+
+.phone-group{
+
+  display:flex;
+  gap:12px;
+
+}
+
+.phone-group select{
+
+  width:150px;
+  flex-shrink:0;
+
+}
+
+/* BUTTON */
+
+.btn{
+
+  border:none;
+
+  padding:16px 22px;
+
+  border-radius:16px;
+
+  cursor:pointer;
+
+  font-weight:700;
+  font-size:15px;
+
+  transition:.25s;
+
+}
+
+.btn:hover{
+
+  transform:translateY(-2px);
+
+}
+
+.btn-primary{
+
+  background:
+  linear-gradient(135deg,#2563eb,#60a5fa);
+
+  color:white;
+
+}
+
+.btn-danger{
+
+  background:#fef2f2;
+  color:#dc2626;
+
+}
+
+.view-btn{
+
+  background:#eff6ff;
+  color:#2563eb;
+
+}
+
+/* PROFILE */
+
+.profile-upload{
+
+  display:flex;
+  align-items:center;
+  gap:20px;
+
+  margin-bottom:25px;
+
+  flex-wrap:wrap;
+
+}
+
+.profile-upload img{
+
+  width:110px;
+  height:110px;
+
+  border-radius:50%;
+  object-fit:cover;
+
+  border:4px solid #e2e8f0;
+
+}
+
+/* PRODUCT PREVIEW */
+
+.product-image-preview{
+
+  width:100%;
+  height:260px;
+
+  object-fit:cover;
+
+  border-radius:22px;
+
+  margin-bottom:22px;
+
+  background:#f1f5f9;
+
+}
+
+/* PRODUCTS */
+
+.products-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(300px,1fr));
+
+  gap:24px;
+
+}
+
+.product-card{
+
+  background:white;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  box-shadow:var(--shadow);
+
+  border:1px solid #e2e8f0;
+
+  transition:.3s;
+
+}
+
+.product-card:hover{
+
+  transform:translateY(-5px);
+
+}
+
+.product-card img{
+
+  width:100%;
+  height:240px;
+
+  object-fit:cover;
+
+  cursor:pointer;
+
+}
+
+.product-body{
+
+  padding:20px;
+
+}
+
+.category{
+
+  display:inline-block;
+
+  background:#eff6ff;
+  color:#2563eb;
+
+  padding:7px 13px;
+
+  border-radius:999px;
+
+  font-size:12px;
+  font-weight:700;
+
+  margin-bottom:14px;
+
+}
+
+.product-body h3{
+
+  font-size:21px;
+  margin-bottom:12px;
+
+}
+
+.price{
+
+  font-size:30px;
+  font-weight:800;
+
+  color:#2563eb;
+
+  margin-bottom:14px;
+
+}
+
+.meta{
+
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+  color:#64748b;
+
+  margin-bottom:18px;
+
+  font-size:15px;
+
+}
+
+.meta span{
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+}
+
+.product-actions{
+
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+
+}
+
+.product-actions .btn{
+
+  flex:1;
+
+}
+
+/* IMAGE MODAL */
+
+.image-modal{
+
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.92);
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  z-index:99999;
+
+}
+
+.image-modal.active{
+  display:flex;
+}
+
+.image-modal img{
+
+  max-width:92%;
+  max-height:90vh;
+
+  border-radius:20px;
+
+  object-fit:contain;
+
+}
+
+.close-image{
+
+  position:absolute;
+  top:20px;
+  right:20px;
+
+  width:55px;
+  height:55px;
+
+  border:none;
+
+  border-radius:50%;
+
+  background:white;
+
+  cursor:pointer;
+
+  font-size:22px;
+
+}
+
+/* MODAL */
+
+.edit-modal{
+
+  position:fixed;
+  inset:0;
+
+  background:rgba(15,23,42,.7);
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  z-index:9999;
+
+}
+
+.edit-modal.active{
+  display:flex;
+}
+
+.edit-modal-content{
+
+  background:white;
+
+  width:100%;
+  max-width:850px;
+
+  border-radius:28px;
+
+  padding:30px;
+
+  max-height:95vh;
+
+  overflow-y:auto;
+
+}
+
+/* LOADER */
+
+.loader{
+
+  position:fixed;
+  inset:0;
+
+  background:rgba(255,255,255,.7);
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  z-index:999999;
+
+}
+
+.spinner{
+
+  width:65px;
+  height:65px;
+
+  border:5px solid #dbeafe;
+  border-top:5px solid #2563eb;
+
+  border-radius:50%;
+
+  animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+  100%{
+    transform:rotate(360deg);
+  }
+
+}
+
+/* MOBILE MENU */
+
+.mobile-menu-btn{
+
+  display:none;
+
+  position:fixed;
+  top:15px;
+  left:15px;
+
+  width:52px;
+  height:52px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:#2563eb;
+  color:white;
+
+  z-index:9999;
+
+  font-size:20px;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px){
+
+  .mobile-menu-btn{
+    display:block;
+  }
+
+  .sidebar{
+
+    transform:translateX(-100%);
+    transition:.3s;
+
+  }
+
+  .sidebar.active{
+    transform:translateX(0);
+  }
+
+  .main{
+
+    margin-left:0;
+    width:100%;
+
+    padding-top:85px;
+
+  }
+
+}
+
+@media(max-width:750px){
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .search-box{
+    width:100%;
+  }
+
+  .search-box input{
+    width:100%;
+  }
+
+  .welcome h1{
+    font-size:28px;
+  }
+
+  .card{
+    padding:20px;
+  }
+
+  .product-body h3{
+    font-size:19px;
+  }
+
+  .price{
+    font-size:26px;
+  }
+
+  input,
+  textarea,
+  select{
+    font-size:16px;
+  }
+
+  .btn{
+    font-size:15px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="mobile-menu-btn"
+id="mobileMenuBtn">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<div class="loader" id="loader">
+<div class="spinner"></div>
+</div>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+<div>
+
+<div class="brand">
+
+<div class="brand-logo">
+<i class="fa-solid fa-store"></i>
+</div>
+
+<div>
+<h2>OurMarket</h2>
+</div>
+
+</div>
+
+<nav class="nav">
+
+<a href="#" class="nav-link active">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="#" class="nav-link">
+<i class="fa-solid fa-plus"></i>
+Add Product
+</a>
+
+<a href="#" class="nav-link">
+<i class="fa-solid fa-box"></i>
+My Products
+</a>
+
+<a href="#" class="nav-link">
+<i class="fa-solid fa-user"></i>
+Profile
+</a>
+
+</nav>
+
+</div>
+
+<button class="logout-btn" id="logoutBtn">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+
+</button>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<div class="topbar">
+
+<div class="welcome">
+
+<h1>Seller Dashboard</h1>
+
+<p>
+Manage your marketplace professionally
+</p>
+
+</div>
+
+<div class="top-actions">
+
+<div class="search-box">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input type="text"
+id="searchInput"
+placeholder="Search products...">
+
+</div>
+
+<div class="profile-mini">
+
+<img id="miniAvatar"
+src="https://i.pravatar.cc/150">
+
+<div>
+
+<strong id="miniName">
+Seller
+</strong>
+
+<br>
+
+<small>
+Marketplace Seller
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<div class="stat-top">
+
+<div>
+
+<p>Total Products</p>
+
+<h3 id="totalProducts">
+0
+</h3>
+
+</div>
+
+<div class="stat-icon blue">
+
+<i class="fa-solid fa-box"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-top">
+
+<div>
+
+<p>Total Sales</p>
+
+<h3 id="totalSales">
+0
+</h3>
+
+</div>
+
+<div class="stat-icon green">
+
+<i class="fa-solid fa-dollar-sign"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-top">
+
+<div>
+
+<p>Orders</p>
+
+<h3 id="totalOrders">
+0
+</h3>
+
+</div>
+
+<div class="stat-icon orange">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-top">
+
+<div>
+
+<p>Visitors</p>
+
+<h3 id="visitors">
+0
+</h3>
+
+</div>
+
+<div class="stat-icon dark">
+
+<i class="fa-solid fa-chart-simple"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div class="card">
+
+<div class="card-title">
+
+<h2>Profile Information</h2>
+
+</div>
+
+<div class="profile-upload">
+
+<img id="profilePreview"
+src="https://i.pravatar.cc/150">
+
+<div>
+
+<input type="file"
+id="profileImageInput"
+hidden>
+
+<button class="btn btn-primary"
+onclick="document.getElementById('profileImageInput').click()">
+
+<i class="fa-solid fa-camera"></i>
+Upload Photo
+
+</button>
+
+</div>
+
+</div>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>First Name</label>
+
+<input type="text"
+id="firstName">
+
+</div>
+
+<div class="form-group">
+
+<label>Last Name</label>
+
+<input type="text"
+id="lastName">
+
+</div>
+
+<div class="form-group">
+
+<label>Phone Number</label>
+
+<div class="phone-group">
+
+<select id="countryCode">
+
+<option value="+265">
+🇲🇼 +265
+</option>
+
+<option value="+260">
+🇿🇲 +260
+</option>
+
+<option value="+258">
+🇲🇿 +258
+</option>
+
+<option value="+255">
+🇹🇿 +255
+</option>
+
+<option value="+263">
+🇿🇼 +263
+</option>
+
+<option value="+27">
+🇿🇦 +27
+</option>
+
+</select>
+
+<input type="text"
+id="phone">
+
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label>Country</label>
+
+<select id="country">
+
+<option>Malawi</option>
+<option>Zambia</option>
+<option>Mozambique</option>
+<option>Tanzania</option>
+<option>Zimbabwe</option>
+<option>South Africa</option>
+
+</select>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+<script>
+
+/* =========================
+   API
+========================= */
+
+const API_URL =
+"https://v2-dashibord-server-11cln.onrender.com/api";
+
+/* =========================
+   AUTH
+========================= */
+
+const token =
+localStorage.getItem("token");
+
+if(!token){
+
+  window.location.href =
+  "/login.html";
+
+}
+
+/* =========================
+   GLOBALS
+========================= */
+
+const loader =
+document.getElementById("loader");
+
+const productsGrid =
+document.getElementById("productsGrid");
+
+let products = [];
+
+/* =========================
+   LOADER
+========================= */
+
+function showLoader(){
+
+  loader.style.display = "flex";
+
+}
+
+function hideLoader(){
+
+  loader.style.display = "none";
+
+}
+
+/* =========================
+   AUTH FETCH
+========================= */
+
+async function authFetch(
+  url,
+  options = {}
+){
+
+  options.headers = {
+
+    ...(options.headers || {}),
+
+    Authorization:
+    `Bearer ${token}`
+
+  };
+
+  return fetch(url,options);
+
+}
+
+/* =========================
+   AUTO PRICE FORMAT
+========================= */
+
+function formatNumber(value){
+
+  value = value.replace(/,/g,'');
+
+  if(value === '') return '';
+
+  return Number(value)
+  .toLocaleString();
+
+}
+
+/* =========================
+   SAVE FORM INPUTS
+========================= */
+
+const saveFields = [
+
+  "productName",
+  "price",
+  "stock",
+  "description",
+  "productLocation"
+
+];
+
+saveFields.forEach(id=>{
+
+  const element =
+  document.getElementById(id);
+
+  if(!element) return;
+
+  element.value =
+  localStorage.getItem(id) || "";
+
+  element.addEventListener(
+    "input",
+    ()=>{
+
+      localStorage.setItem(
+        id,
+        element.value
+      );
+
+    }
+  );
+
+});
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
+
+async function loadProducts(){
+
+  try{
+
+    showLoader();
+
+    const res =
+    await authFetch(
+      `${API_URL}/products/my`
+    );
+
+    const data =
+    await res.json();
+
+    products = data;
+
+    renderProducts(products);
+
+    updateStats();
+
+  }catch(err){
+
+    console.log(err);
+
+  }finally{
+
+    hideLoader();
+
+  }
+
+}
+
+/* =========================
+   RENDER PRODUCTS
+========================= */
+
+function renderProducts(items){
+
+  const grid =
+  document.getElementById("productsGrid");
+
+  if(!grid) return;
+
+  if(items.length === 0){
+
+    grid.innerHTML = `
+    <div class="card">
+
+      <h2>
+      No products yet
+      </h2>
+
+    </div>
+    `;
+
+    return;
+
+  }
+
+  grid.innerHTML =
+  items.map(product=>`
+
+  <div class="product-card">
+
+    <img
+    src="${product.image ||
+    'https://via.placeholder.com/500'}">
+
+    <div class="product-body">
+
+      <span class="category">
+      ${product.category}
+      </span>
+
+      <h3>
+      ${product.name}
+      </h3>
+
+      <div class="price">
+
+      ${product.currency}
+      ${Number(product.price)
+      .toLocaleString()}
+
+      </div>
+
+      <div class="meta">
+
+      <span>
+
+      <i class="fa-solid fa-location-dot"></i>
+
+      ${product.location}
+
+      </span>
+
+      <span>
+
+      <i class="fa-solid fa-cubes"></i>
+
+      ${product.stock || 0}
+      in stock
+
+      </span>
+
+      </div>
+
+      <div class="product-actions">
+
+      <button
+      class="btn btn-primary">
+
+      Edit
+
+      </button>
+
+      <button
+      class="btn btn-danger">
+
+      Delete
+
+      </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  `).join("");
+
+}
+
+/* =========================
+   PROFILE LOAD
+========================= */
+
+async function loadProfile(){
+
+  try{
+
+    const res =
+    await authFetch(
+      `${API_URL}/profile`
+    );
+
+    const profile =
+    await res.json();
+
+    if(profile.firstName){
+
+      document.getElementById(
+        "miniName"
+      ).innerText =
+
+      `${profile.firstName}
+      ${profile.lastName}`;
+
+    }
+
+  }catch(err){
+
+    console.log(err);
+
+  }
+
+}
+
+/* =========================
+   STATS
+========================= */
+
+function updateStats(){
+
+  document.getElementById(
+    "totalProducts"
+  ).innerText =
+  products.length;
+
+  let sales = 0;
+
+  products.forEach(p=>{
+
+    sales += Number(p.price || 0);
+
+  });
+
+  document.getElementById(
+    "totalSales"
+  ).innerText =
+
+  "$" + sales.toLocaleString();
+
+  document.getElementById(
+    "totalOrders"
+  ).innerText =
+
+  Math.floor(products.length * 2);
+
+  document.getElementById(
+    "visitors"
+  ).innerText =
+
+  (products.length * 120)
+  .toLocaleString() + "+";
+
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+document.getElementById(
+  "mobileMenuBtn"
+).addEventListener(
+  "click",
+  ()=>{
+
+    document.getElementById(
+      "sidebar"
+    ).classList.toggle(
+      "active"
+    );
+
+  }
+);
+
+/* =========================
+   LOGOUT
+========================= */
+
+document.getElementById(
+  "logoutBtn"
+).addEventListener(
+  "click",
+  ()=>{
+
+    localStorage.removeItem(
+      "token"
+    );
+
+    window.location.href =
+    "/login.html";
+
+  }
+);
+
+/* =========================
+   INIT
+========================= */
+
+loadProfile();
+
+loadProducts();
+
+</script>
+
+</body>
+</html>
