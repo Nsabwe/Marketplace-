@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>OurMarket - Professional Marketplace Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<style>
+
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --danger:#dc2626;
+  --success:#16a34a;
+  --dark:#0f172a;
+  --dark2:#111827;
+  --bg:#f1f5f9;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --shadow:0 10px 30px rgba(15,23,42,.08);
+  --radius:22px;
+  --sidebar:280px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:"Inter",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  overflow-x:hidden;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.mobile-menu-btn{
+  display:none;
+  position:fixed;
+  top:15px;
+  left:15px;
+  width:52px;
+  height:52px;
+  border:none;
+  border-radius:16px;
+  background:var(--primary);
+  color:white;
+  z-index:3000;
+  font-size:20px;
+  box-shadow:var(--shadow);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  width:var(--sidebar);
+  background:linear-gradient(180deg,var(--dark),var(--dark2));
+  color:white;
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  padding:24px 18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  z-index:2000;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:40px;
+}
+
+.brand-logo{
+  width:60px;
+  height:60px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#2563eb,#60a5fa);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.brand h2{
+  font-size:24px;
+  font-weight:800;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.nav-link{
+  text-decoration:none;
+  color:#cbd5e1;
+  padding:16px 18px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  transition:.3s;
+  font-weight:700;
+}
+
+.nav-link:hover,
+.nav-link.active{
+  background:rgba(255,255,255,.08);
+  color:white;
+}
+
+.logout-btn{
+  border:none;
+  padding:16px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+  color:white;
+  font-weight:700;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  margin-left:var(--sidebar);
+  width:calc(100% - var(--sidebar));
+  padding:30px;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+  margin-bottom:30px;
+}
+
+.welcome h1{
+  font-size:36px;
+  font-weight:800;
+}
+
+.welcome p{
+  color:var(--muted);
+  margin-top:6px;
+}
+
+.profile-mini{
+  background:white;
+  padding:10px 16px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  box-shadow:var(--shadow);
+}
+
+.profile-mini img{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+  position:relative;
+}
+
+.search-box i{
+  position:absolute;
+  left:16px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+
+.search-box input{
+  width:300px;
+  padding:15px 16px 15px 46px;
+  border:none;
+  outline:none;
+  border-radius:16px;
+  background:white;
+  box-shadow:var(--shadow);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
+  margin-bottom:28px;
+}
+
+.stat-card{
+  background:white;
+  padding:25px;
+  border-radius:24px;
+  box-shadow:var(--shadow);
+}
+
+.stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stat-card h3{
+  font-size:34px;
+  margin-top:10px;
+}
+
+.stat-card p{
+  color:var(--muted);
+}
+
+.stat-icon{
+  width:60px;
+  height:60px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:22px;
+}
+
+.blue{
+  background:linear-gradient(135deg,#2563eb,#60a5fa);
+}
+
+.green{
+  background:linear-gradient(135deg,#16a34a,#4ade80);
+}
+
+.orange{
+  background:linear-gradient(135deg,#ea580c,#fb923c);
+}
+
+.dark{
+  background:linear-gradient(135deg,#0f172a,#334155);
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+  background:white;
+  border-radius:26px;
+  padding:28px;
+  margin-bottom:28px;
+  box-shadow:var(--shadow);
+}
+
+.card-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.card-title h2{
+  font-size:24px;
+  font-weight:800;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+label{
+  font-size:14px;
+  font-weight:700;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  border:1px solid var(--border);
+  padding:16px;
+  border-radius:16px;
+  outline:none;
+  transition:.3s;
+  font-size:15px;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px rgba(37,99,235,.1);
+}
+
+textarea{
+  min-height:120px;
+  resize:none;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+  border:none;
+  padding:15px 22px;
+  border-radius:16px;
+  font-weight:700;
+  transition:.3s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#2563eb,#60a5fa);
+  color:white;
+}
+
+.btn-danger{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+.btn-secondary{
+  background:#eff6ff;
+  color:#2563eb;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-upload{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+.profile-upload img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid var(--border);
+}
+
+/* =========================
+   PRODUCT PREVIEW
+========================= */
+
+.product-image-preview{
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  border-radius:22px;
+  margin-bottom:24px;
+  background:#e2e8f0;
+  cursor:pointer;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:24px;
+}
+
+.product-card{
+  background:white;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:.3s;
+}
+
+.product-card:hover{
+  transform:translateY(-5px);
+}
+
+.product-card img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  cursor:pointer;
+}
+
+.product-body{
+  padding:22px;
+}
+
+.category{
+  display:inline-block;
+  background:#eff6ff;
+  color:#2563eb;
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:14px;
+}
+
+.product-body h3{
+  margin-bottom:10px;
+  font-size:24px;
+}
+
+.price{
+  font-size:30px;
+  font-weight:800;
+  color:#2563eb;
+  margin-bottom:14px;
+}
+
+.meta{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  color:var(--muted);
+  margin-bottom:20px;
+}
+
+.product-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.product-actions .btn{
+  flex:1;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+  background:white;
+  padding:60px;
+  border-radius:24px;
+  text-align:center;
+  color:#94a3b8;
+  box-shadow:var(--shadow);
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+}
+
+.spinner{
+  width:65px;
+  height:65px;
+  border:5px solid #dbeafe;
+  border-top:5px solid var(--primary);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+/* =========================
+   IMAGE MODAL
+========================= */
+
+.image-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999999;
+  padding:20px;
+}
+
+.image-modal.active{
+  display:flex;
+}
+
+.image-modal img{
+  max-width:95%;
+  max-height:90vh;
+  border-radius:20px;
+  object-fit:contain;
+}
+
+.close-modal{
+  position:absolute;
+  top:20px;
+  right:25px;
+  width:50px;
+  height:50px;
+  border:none;
+  border-radius:50%;
+  background:white;
+  color:#111;
+  font-size:22px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:950px){
+
+  .mobile-menu-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.3s;
+  }
+
+  .sidebar.active{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding-top:90px;
+  }
+}
+
+@media(max-width:700px){
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .products-grid{
+    grid-template-columns:1fr;
+  }
+
+  .search-box{
+    width:100%;
+  }
+
+  .search-box input{
+    width:100%;
+  }
+
+  .welcome h1{
+    font-size:28px;
+  }
+
+  .card{
+    padding:20px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MOBILE BUTTON -->
+
+<button class="mobile-menu-btn" id="mobileMenuBtn">
+<i class="fa-solid fa-bars"></i>
+</button>
+
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+<div class="spinner"></div>
+</div>
+
+<!-- IMAGE VIEWER -->
+
+<div class="image-modal" id="imageModal">
+<button class="close-modal" id="closeModal">
+<i class="fa-solid fa-xmark"></i>
+</button>
+
+<img id="modalImage" src="">
+</div>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+<div>
+
+<div class="brand">
+<div class="brand-logo">
+<i class="fa-solid fa-store"></i>
+</div>
+
+<div>
+<h2>OurMarket</h2>
+</div>
+</div>
+
+<nav class="nav">
+
+<a href="#" class="nav-link active" data-section="dashboard">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="#" class="nav-link" data-section="add-product">
+<i class="fa-solid fa-plus"></i>
+Add Product
+</a>
+
+<a href="#" class="nav-link" data-section="products">
+<i class="fa-solid fa-box"></i>
+My Products
+</a>
+
+<a href="#" class="nav-link" data-section="profile">
+<i class="fa-solid fa-user"></i>
+Profile
+</a>
+
+</nav>
+
+</div>
+
+<button class="logout-btn" id="logoutBtn">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</button>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="welcome">
+<h1>Seller Dashboard</h1>
+<p>Professional marketplace management system</p>
+</div>
+
+<div style="display:flex;gap:15px;flex-wrap:wrap;align-items:center;">
+
+<div class="search-box">
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input type="text"
+id="searchInput"
+placeholder="Search products...">
+</div>
+
+<div class="profile-mini">
+
+<img id="miniAvatar"
+src="https://i.pravatar.cc/150">
+
+<div>
+<strong id="miniName">Seller</strong>
+<br>
+<small>Marketplace Seller</small>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<section class="section active" id="dashboard-section">
+
+<div class="stats-grid">
+
+<div class="stat-card">
+<div class="stat-top">
+
+<div>
+<p>Total Products</p>
+<h3 id="totalProducts">0</h3>
+</div>
+
+<div class="stat-icon blue">
+<i class="fa-solid fa-box"></i>
+</div>
+
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-top">
+
+<div>
+<p>Total Sales</p>
+<h3 id="totalSales">$0</h3>
+</div>
+
+<div class="stat-icon green">
+<i class="fa-solid fa-dollar-sign"></i>
+</div>
+
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-top">
+
+<div>
+<p>Orders</p>
+<h3 id="totalOrders">0</h3>
+</div>
+
+<div class="stat-icon orange">
+<i class="fa-solid fa-cart-shopping"></i>
+</div>
+
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-top">
+
+<div>
+<p>Visitors</p>
+<h3 id="visitors">0</h3>
+</div>
+
+<div class="stat-icon dark">
+<i class="fa-solid fa-chart-simple"></i>
+</div>
+
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- PROFILE -->
+
+<section class="section" id="profile-section">
+
+<div class="card">
+
+<div class="card-title">
+<h2>Profile Information</h2>
+</div>
+
+<div class="profile-upload">
+
+<img id="profilePreview"
+src="https://i.pravatar.cc/150">
+
+<div>
+
+<input type="file"
+id="profileImageInput"
+hidden>
+
+<button class="btn btn-primary"
+onclick="profileImageInput.click()">
+
+<i class="fa-solid fa-camera"></i>
+Upload Photo
+
+</button>
+
+</div>
+
+</div>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>First Name</label>
+<input type="text" id="firstName">
+</div>
+
+<div class="form-group">
+<label>Last Name</label>
+<input type="text" id="lastName">
+</div>
+
+<div class="form-group">
+<label>Phone</label>
+<input type="text" id="phone">
+</div>
+
+<div class="form-group">
+<label>Country</label>
+
+<select id="country">
+<option>Malawi</option>
+<option>Zambia</option>
+<option>Tanzania</option>
+<option>South Africa</option>
+<option>USA</option>
+</select>
+</div>
+
+<div class="form-group full">
+<label>Location</label>
+<input type="text" id="location">
+</div>
+
+<div class="form-group full">
+<label>Bio</label>
+<textarea id="bio"></textarea>
+</div>
+
+<div class="form-group full">
+
+<button class="btn btn-primary"
+id="saveProfileBtn">
+
+Save Profile
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ADD PRODUCT -->
+
+<section class="section" id="add-product-section">
+
+<div class="card">
+
+<div class="card-title">
+<h2>Add Product</h2>
+</div>
+
+<img
+id="productPreview"
+class="product-image-preview"
+src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop">
+
+<div class="form-grid">
+
+<div class="form-group full">
+<label>Product Name</label>
+<input type="text" id="productName">
+</div>
+
+<div class="form-group">
+<label>Category</label>
+
+<select id="productCategory">
+<option>Electronics</option>
+<option>Fashion</option>
+<option>Beauty</option>
+<option>Vehicles</option>
+<option>Home</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Currency</label>
+
+<select id="currency">
+<option>MWK</option>
+<option>USD</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Price</label>
+<input type="number" id="price">
+</div>
+
+<div class="form-group">
+<label>Stock</label>
+<input type="number" id="stock">
+</div>
+
+<div class="form-group full">
+<label>Description</label>
+<textarea id="description"></textarea>
+</div>
+
+<div class="form-group full">
+<label>Location</label>
+<input type="text" id="productLocation">
+</div>
+
+<div class="form-group full">
+<label>Product Image</label>
+<input type="file" id="productImage">
+</div>
+
+<div class="form-group full">
+
+<button class="btn btn-primary"
+id="addProductBtn">
+
+<i class="fa-solid fa-plus"></i>
+Add Product
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<section class="section" id="products-section">
+
+<div class="card-title">
+<h2>My Products</h2>
+</div>
+
+<div class="products-grid"
+id="productsGrid"></div>
+
+</section>
+
+</main>
+
+<script>
+
+/* =========================================================
+   PROFESSIONAL MARKETPLACE DASHBOARD
+   FULL UPGRADE VERSION
+   KEEPING SAME UI / DESIGN
+========================================================= */
+
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const API_URL =
+"https://v2-dashibord-server-11cln.onrender.com/api";
+
+const DEFAULT_PRODUCT_IMAGE =
+"https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200&auto=format&fit=crop";
+
+const token =
+localStorage.getItem("token");
+
+if (!token) {
+  window.location.href = "/login.html";
+}
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+const $ = id =>
+document.getElementById(id);
+
+const elements = {
+  loader: $("loader"),
+  sidebar: $("sidebar"),
+  productsGrid: $("productsGrid"),
+  imageModal: $("imageModal"),
+  modalImage: $("modalImage")
+};
+
+const navLinks =
+document.querySelectorAll(".nav-link");
+
+const sections =
+document.querySelectorAll(".section");
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+let products = [];
+let profile = {};
+let editingProductId = null;
+
+/* =========================================================
+   API CLIENT
+========================================================= */
+
+async function api(
+  endpoint,
+  options = {}
+){
+
+  try {
+
+    const response = await fetch(
+      `${API_URL}${endpoint}`,
+      {
+        ...options,
+
+        headers: {
+          Authorization:
+          `Bearer ${token}`,
+
+          ...(options.body &&
+          !(options.body instanceof FormData)
+            ? {
+                "Content-Type":
+                "application/json"
+              }
+            : {}),
+
+          ...(options.headers || {})
+        }
+      }
+    );
+
+    const data =
+    await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message ||
+        "Request failed"
+      );
+    }
+
+    return data;
+
+  } catch (error) {
+
+    console.error(error);
+
+    throw error;
+  }
+}
+
+/* =========================================================
+   UI UTILITIES
+========================================================= */
+
+function showLoader() {
+  elements.loader.style.display = "flex";
+}
+
+function hideLoader() {
+  elements.loader.style.display = "none";
+}
+
+function showToast(message) {
+  alert(message);
+}
+
+function openImage(src) {
+
+  elements.modalImage.src = src;
+
+  elements.imageModal
+  .classList.add("active");
+}
+
+function closeImage() {
+
+  elements.imageModal
+  .classList.remove("active");
+}
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+$("mobileMenuBtn")
+.addEventListener(
+  "click",
+  () => {
+
+    elements.sidebar
+    .classList.toggle("active");
+
+  }
+);
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+navLinks.forEach(link => {
+
+  link.addEventListener(
+    "click",
+    e => {
+
+      e.preventDefault();
+
+      navLinks.forEach(item =>
+        item.classList
+        .remove("active")
+      );
+
+      sections.forEach(section =>
+        section.classList
+        .remove("active")
+      );
+
+      link.classList.add("active");
+
+      $(
+        `${link.dataset.section}-section`
+      )
+      .classList.add("active");
+
+      if (
+        window.innerWidth < 950
+      ) {
+
+        elements.sidebar
+        .classList.remove("active");
+
+      }
+
+    }
+  );
+
+});
+
+/* =========================================================
+   IMAGE MODAL
+========================================================= */
+
+$("closeModal")
+.addEventListener(
+  "click",
+  closeImage
+);
+
+elements.imageModal
+.addEventListener(
+  "click",
+  e => {
+
+    if (
+      e.target ===
+      elements.imageModal
+    ) {
+      closeImage();
+    }
+
+  }
+);
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+$("productImage")
+.addEventListener(
+  "change",
+  previewProductImage
+);
+
+$("profileImageInput")
+.addEventListener(
+  "change",
+  previewProfileImage
+);
+
+function previewProductImage(e) {
+
+  const file =
+  e.target.files[0];
+
+  if (!file) return;
+
+  const reader =
+  new FileReader();
+
+  reader.onload = event => {
+
+    $("productPreview").src =
+    event.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function previewProfileImage(e) {
+
+  const file =
+  e.target.files[0];
+
+  if (!file) return;
+
+  const reader =
+  new FileReader();
+
+  reader.onload = event => {
+
+    $("profilePreview").src =
+    event.target.result;
+
+    $("miniAvatar").src =
+    event.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+}
+
+/* =========================================================
+   LOAD PROFILE
+========================================================= */
+
+async function loadProfile() {
+
+  try {
+
+    const data =
+    await api("/profile");
+
+    profile = data.user || data;
+
+    $("firstName").value =
+    profile.firstName || "";
+
+    $("lastName").value =
+    profile.lastName || "";
+
+    $("phone").value =
+    profile.phone || "";
+
+    $("country").value =
+    profile.country || "";
+
+    $("location").value =
+    profile.location || "";
+
+    $("bio").value =
+    profile.bio || "";
+
+    $("miniName").innerText =
+    `${profile.firstName || ""}
+    ${profile.lastName || ""}`;
+
+    if (profile.avatar) {
+
+      $("profilePreview").src =
+      profile.avatar;
+
+      $("miniAvatar").src =
+      profile.avatar;
+    }
+
+  } catch (error) {
+
+    showToast(
+      error.message
+    );
+
+  }
+
+}
+
+/* =========================================================
+   SAVE PROFILE
+========================================================= */
+
+$("saveProfileBtn")
+.addEventListener(
+  "click",
+  saveProfile
+);
+
+// SAVE PROFILE - FIXED VERSION
+async function saveProfile() {
+  try {
+    showLoader();
+    
+    // Get all form elements and check they exist
+    const firstNameEl = $("#firstName");
+    const lastNameEl = $("#lastName");
+    const phoneEl = $("#phone");
+    const countryEl = $("#country");
+    const locationEl = $("#location");
+    const bioEl = $("#bio");
+    const avatarFile = $("#profileImageInput").files[0];
+    
+    // Validate all required elements exist
+    if (!firstNameEl || !lastNameEl || !phoneEl || !countryEl || !locationEl || !bioEl) {
+      showToast("Form elements not found");
+      return;
+    }
+    
+    const formData = new FormData();
+    formData.append('firstName', firstNameEl.value);
+    formData.append('lastName', lastNameEl.value);
+    formData.append('phone', phoneEl.value);
+    formData.append('country', countryEl.value);
+    formData.append('location', locationEl.value);
+    formData.append('bio', bioEl.value);
+    
+    // Get avatar file if changed
+    if (avatarFile) {
+      formData.append('avatar', avatarFile);
+    }
+
+    const response = await fetch(`${API_URL}/profile`, {
+      method: "PUT",
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: formData
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Update failed");
+
+    // Update UI with new data
+    if (data.avatar) {
+      $("#profilePreview").src = data.avatar;
+      $("#miniAvatar").src = data.avatar;
+    }
+    
+    // Update mini name display
+    $("#miniName").innerText = `${data.firstName || firstNameEl.value || ""} ${data.lastName || lastNameEl.value || ""}`.trim();
+    
+    showToast("Profile updated successfully");
+  } catch (error) {
+    console.error("Save profile error:", error);
+    showToast(error.message);
+  } finally {
+    hideLoader();
+  }
+}
+
+/* =========================================================
+   LOAD PRODUCTS
+========================================================= */
+
+async function loadProducts() {
+  try {
+    showLoader();
+    const data = await api("/products/my"); // Changed from "/products"
+    products = data.products || data || [];
+    renderProducts();
+    updateStats();
+  } catch (error) {
+    showToast(error.message);
+  } finally {
+    hideLoader();
+  }
+}
+
+/* =========================================================
+   ADD / UPDATE PRODUCT
+========================================================= */
+
+$("addProductBtn")
+.addEventListener(
+  "click",
+  saveProduct
+);
+
+async function saveProduct() {
+  try {
+    const name = $("productName").value.trim();
+    const price = $("price").value.trim();
+    const location = $("productLocation").value.trim();
+
+    if (!name || !price || !location) {
+      return showToast("Please fill all required fields");
+    }
+
+    showLoader();
+
+    // Create FormData instead of JSON
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('category', $("productCategory").value);
+    formData.append('currency', $("currency").value);
+    formData.append('price', price);
+    formData.append('stock', $("stock").value);
+    formData.append('description', $("description").value);
+    formData.append('location', location);
+    
+    // Add image file if selected
+    const imageFile = $("productImage").files[0];
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+
+    let data;
+
+    if (editingProductId) {
+      data = await api(`/products/${editingProductId}`, {
+        method: "PUT",
+        body: formData
+      });
+
+      products = products.map(product =>
+        product._id === editingProductId ? data : product
+      );
+
+      editingProductId = null;
+      $("addProductBtn").innerHTML = `<i class="fa-solid fa-plus"></i> Add Product`;
+      showToast("Product updated");
+    } else {
+      data = await api("/products", {
+        method: "POST",
+        body: formData
+      });
+
+      products.unshift(data);
+      showToast("Product added");
+    }
+
+    renderProducts();
+    updateStats();
+    resetForm();
+
+  } catch (error) {
+    showToast(error.message);
+  } finally {
+    hideLoader();
+  }
+}
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
+function resetForm() {
+
+  editingProductId = null;
+
+  [
+    "productName",
+    "price",
+    "stock",
+    "description",
+    "productLocation",
+    "productImage"
+  ]
+  .forEach(id => {
+
+    $(id).value = "";
+
+  });
+
+  $("productPreview").src =
+  DEFAULT_PRODUCT_IMAGE;
+
+}
+
+/* =========================================================
+   RENDER PRODUCTS
+========================================================= */
+
+function renderProducts(
+  items = products
+){
+
+  if (!items.length) {
+
+    elements.productsGrid.innerHTML = `
+      <div class="empty">
+
+        <i class="fa-solid fa-box-open"
+        style="
+        font-size:60px;
+        margin-bottom:20px;
+        "></i>
+
+        <h2>No Products Found</h2>
+
+        <p style="margin-top:10px;">
+        Add your first product now
+        </p>
+
+      </div>
+    `;
+
+    return;
+  }
+
+  elements.productsGrid.innerHTML =
+  items.map(product => `
+
+    <div class="product-card">
+
+      <img
+      src="${
+        product.image ||
+        DEFAULT_PRODUCT_IMAGE
+      }"
+
+      onclick="
+      openImage(
+      '${
+        product.image ||
+        DEFAULT_PRODUCT_IMAGE
+      }'
+      )
+      ">
+
+      <div class="product-body">
+
+        <span class="category">
+        ${product.category}
+        </span>
+
+        <h3>${product.name}</h3>
+
+        <div class="price">
+
+        ${product.currency}
+
+        ${Number(
+          product.price || 0
+        ).toLocaleString()}
+
+        </div>
+
+        <div class="meta">
+
+          <span>
+
+          <i class="
+          fa-solid
+          fa-location-dot
+          "></i>
+
+          ${product.location}
+
+          </span>
+
+          <span>
+
+          <i class="
+          fa-solid
+          fa-cubes
+          "></i>
+
+          Stock:
+          ${product.stock || 0}
+
+          </span>
+
+        </div>
+
+        <div class="product-actions">
+
+          <button
+          class="btn btn-secondary"
+          onclick="
+          editProduct(
+          '${product._id}'
+          )
+          ">
+
+          Edit
+
+          </button>
+
+          <button
+          class="btn btn-danger"
+          onclick="
+          deleteProduct(
+          '${product._id}'
+          )
+          ">
+
+          Delete
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+/* =========================================================
+   EDIT PRODUCT
+========================================================= */
+
+function editProduct(id) {
+
+  const product =
+  products.find(
+    p => p._id === id
+  );
+
+  if (!product) return;
+
+  editingProductId = id;
+
+  $("productName").value =
+  product.name;
+
+  $("productCategory").value =
+  product.category;
+
+  $("currency").value =
+  product.currency;
+
+  $("price").value =
+  product.price;
+
+  $("stock").value =
+  product.stock;
+
+  $("description").value =
+  product.description;
+
+  $("productLocation").value =
+  product.location;
+
+  $("productPreview").src =
+  product.image ||
+  DEFAULT_PRODUCT_IMAGE;
+
+  $("addProductBtn")
+  .innerHTML = `
+  <i class="fa-solid fa-pen"></i>
+  Update Product
+  `;
+
+  document
+  .querySelector(
+    '[data-section="add-product"]'
+  )
+  .click();
+
+}
+
+/* =========================================================
+   DELETE PRODUCT
+========================================================= */
+
+async function deleteProduct(id) {
+
+  if (
+    !confirm(
+      "Delete this product?"
+    )
+  ) return;
+
+  try {
+
+    showLoader();
+
+    await api(
+      `/products/${id}`,
+      {
+        method: "DELETE"
+      }
+    );
+
+    products =
+    products.filter(
+      product =>
+      product._id !== id
+    );
+
+    renderProducts();
+
+    updateStats();
+
+    showToast(
+      "Product deleted"
+    );
+
+  } catch (error) {
+
+    showToast(error.message);
+
+  } finally {
+
+    hideLoader();
+
+  }
+
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+$("searchInput")
+.addEventListener(
+  "input",
+  e => {
+
+    const value =
+    e.target.value
+    .toLowerCase();
+
+    const filtered =
+    products.filter(product =>
+
+      product.name
+      .toLowerCase()
+      .includes(value)
+
+      ||
+
+      product.category
+      .toLowerCase()
+      .includes(value)
+
+    );
+
+    renderProducts(filtered);
+
+  }
+);
+
+/* =========================================================
+   DASHBOARD STATS
+========================================================= */
+
+function updateStats() {
+
+  $("totalProducts").innerText =
+  products.length;
+
+  const total =
+  products.reduce(
+    (sum, product) =>
+
+      sum +
+      Number(
+        product.price || 0
+      ),
+
+    0
+  );
+
+  $("totalSales").innerText =
+  "$" +
+  total.toLocaleString();
+
+  $("totalOrders").innerText =
+  Math.floor(
+    products.length * 2.3
+  );
+
+  $("visitors").innerText =
+  (
+    products.length * 137
+  ) + "+";
+
+}
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+$("logoutBtn")
+.addEventListener(
+  "click",
+  logout
+);
+
+function logout() {
+
+  if (
+    !confirm("Logout now?")
+  ) return;
+
+  localStorage.removeItem(
+    "token"
+  );
+
+  window.location.href =
+  "/login.html";
+}
+
+/* =========================================================
+   INITIALIZE APP
+========================================================= */
+
+async function init() {
+
+  await Promise.all([
+    loadProfile(),
+    loadProducts()
+  ]);
+
+}
+
+init();
+</script>
+
+</body>
+</html>
